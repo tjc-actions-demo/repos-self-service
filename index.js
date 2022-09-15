@@ -65,7 +65,7 @@ const main = async () => {
 
     matches.forEach((match, index) => {
         const parameter = match.split('=')[0].substring(1);
-        const value = match.split('=')[1].replace("\"", "");
+        const value = match.split('=')[1].substring(1, match.split('=')[1].length - 2);
 
         switch (parameter.toLowerCase()) {
             case "org":
