@@ -15,7 +15,7 @@ jobs:
 
       - name: Dump GitHub context
         id: github_context_step
-        run: echo '${{ github.event }}'
+        run: echo '${{ toJSON(github) }}'
       
       - name: Dump job context
         run: echo '${{ toJSON(job) }}'
