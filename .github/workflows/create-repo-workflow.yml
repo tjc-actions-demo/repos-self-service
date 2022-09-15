@@ -2,12 +2,13 @@ name: new-repo-workflow
 
 on:
   issues:
-    types:
-      - "opened"
+    types: [opened]
+  issue_comment:
+    types: [created]
 
 jobs:
   create-repo:
     name: Create Rpo
     runs-on: self-hosted
     steps:
-      - run: echo "Issue created"
+      - run: echo "Issue created and or commented on"
