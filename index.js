@@ -123,7 +123,7 @@ const main = async () => {
         owner,
         repo,
         issue_number: issueNumber,
-        body: `Your repo has been created`
+        body: `Your repo has been created - <https://github.com/${newRepo.owner}/${newRepo.name}>`
     });
 
     await repoOctokit.rest.issues.update({
