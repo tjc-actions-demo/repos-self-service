@@ -7,6 +7,9 @@ inputs:
   issueNumber:
     description: 'The ID of the issue that has the parameters for creating the repository'
     required: true
+  repoToken:
+    description: 'The GITHUB_TOKEN from the secrets context. This is used to add comments to the issue.'
+    required: true
 runs:
   using: 'node16'
   main: 'index.js'
