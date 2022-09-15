@@ -111,7 +111,7 @@ const main = async () => {
 
     await apiOctokit.rest.repos.createOrUpdateFileContents({
         owner: newRepo.owner,
-        name: newRepo.name,
+        repo: newRepo.name,
         path: "README.md",
         content: content,
         committer: { name: "Repo Self Service", email: "automation@company.local" },
