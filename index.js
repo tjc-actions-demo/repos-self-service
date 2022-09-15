@@ -1,4 +1,5 @@
 const command = "/repo";
+const commandParameterRegEx = "-[\\w]+=\"[\\w\\d-\\\\/_]+\""
 const core = require('@actions/core');
 const github = require('@actions/github');
 
@@ -42,7 +43,7 @@ const main = async () => {
 
     var latestComment = comments[comments.length - 1];
 
-    console.log(`Latest Comment \r\n ${JSON.stringify(latestComment)}`);
+    console.log(`Latest Comment \r\n ${JSON.stringify(latestComment, null, 2)}`);
 
     if(!latestComment.body.includes(command)) {
         repoOctokit.rest.issues.createComment({
@@ -52,6 +53,10 @@ const main = async () => {
             body: "A repo command was not found in your last comment."
         })
     }
+
+    const matches = latestComment.body.match(commandParameterRegEx);
+
+    console.log(`Matches\r\n${JSON.stringify(matches, null, 2)}`)
 }
 
 console.log("Calling main");
