@@ -1,11 +1,11 @@
 name: 'Create Repository'
 description: "Creates a repository conforming to the organization's requirements."
 inputs:
-  issueId:
-    description: 'The ID of the issue that has the parameters for creating the repository'
-    required: true
   apiToken:
     description: 'The GitHub token to use when accessing the API'
+    required: true
+  issueId:
+    description: 'The ID of the issue that has the parameters for creating the repository'
     required: true
 runs:
   using: 'node16'

@@ -9,7 +9,14 @@ jobs:
     name: Create Rpo
     runs-on: self-hosted
     steps:
-      - run: echo "Issue created and or commented on"
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Process command
+        uses: ./
+        with:
+          apiToken: ${{ github.secrets.API_TOKEN }}
+          issueId: ${{ github.event.issue.id }}
 
       - name: Dump GitHub context
         id: github_context_step
