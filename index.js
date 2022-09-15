@@ -14,8 +14,8 @@ const repo = github.context.repo.repo
 const main = async () => {
     console.log("Getting issue...");
     console.log(`Issue ID: ${issueId}`);
-    console.log(`Owner: ${context.repo.owner}`);
-    console.log(`Repo: ${context.repo.repo}`);
+    console.log(`Owner: ${owner}`);
+    console.log(`Repo: ${repo}`);
 
     const { data: issue } = await octokit.rest.issues.get({
         owner,
