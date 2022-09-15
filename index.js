@@ -56,10 +56,20 @@ const main = async () => {
 
     const matches = latestComment.body.match(commandParameterRegEx);
 
+    var commandParameters = [];
+
     matches.forEach((match, index) => 
     {
-        console.log(`Match '${match}' at index ${index} `)
+        console.log(`Match '${match}' at index ${index}`)
+        commandParameters.push(match);
     });
+
+    repoOctokit.rest.issues.createComment({
+        owner,
+        repo,
+        issue_number: issueNumber,
+        body: "Command parameters:\r\n" + commandParameters.join("\r\n")
+    })
 }
 
 console.log("Calling main");
