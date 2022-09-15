@@ -1,0 +1,15 @@
+name: New Repo - Self Service
+description: Provides a self service way to create new repos in the org
+title: "[New Repo]: "
+# labels: ["bug", "triage"]
+assignees:
+  - tj-cappelletti
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Let's help you create your new repo! Answer the questions below and we will get you on your way!
+  - type: input
+    attributes:
+      label: Repo Name
+      description: "The name you would like to call your repo. It must meet our naming standards."
