@@ -1,5 +1,3 @@
-const command = "/repo";
-const commandParameterRegEx = /-[\w]+="[\w\d-\\/_]+"/g
 const core = require('@actions/core');
 const github = require('@actions/github');
 
@@ -11,6 +9,8 @@ const repoToken = core.getInput('repoToken', { required: true });
 const apiOctokit = github.getOctokit(apiToken);
 const repoOctokit = github.getOctokit(repoToken);
 
+const command = "/repo";
+const commandParameterRegEx = /-[\w]+="[\w\d-\\/_]+"/g
 const owner = github.context.repo.owner;
 const repo = github.context.repo.repo
 
@@ -90,8 +90,36 @@ const main = async () => {
         owner,
         repo,
         issue_number: issueNumber,
-        body: `Command:\r\nOrganization - ${newRepo.owner}\r\nName - ${newRepo.name}\r\nLicense - ${newRepo.license}\r\nTemplate - ${newRepo.template}`
+        body: `Creating a new repo with the following information\r\nOrganization: ${newRepo.owner}\r\nName: ${newRepo.name}\r\nLicense: ${newRepo.license}\r\nTemplate: ${newRepo.template}`
     });
+
+    if(!newRepo.template) {
+        apiOctokit.rest.repos.createUsingTemplate({
+            template_owner: newRepo.template.split('/')[0],
+            template_repo: newRepo.template.split('/')[1],
+            owner: repo.owner,
+            name: repo.name
+        });
+    } else {
+        apiOctokit.rest.repos.createInOrg({
+            owner: repo.owner,
+            name: repo.name
+        });
+    }
+
+    repoOctokit.rest.issues.createComment({
+        owner,
+        repo,
+        issue_number: issueNumber,
+        body: `Your repo has been created`
+    });
+
+    repoOctokit.rest.issues.update({
+        owner,
+        repo,
+        issue_number: issueNumber,
+        state: "closed"
+    })
 }
 
 console.log("Calling main");
