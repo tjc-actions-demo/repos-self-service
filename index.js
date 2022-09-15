@@ -42,7 +42,9 @@ const main = async () => {
 
     var latestComment = comments[comments.length - 1];
 
-    if(!latestComment.body_text.includes(command)) {
+    console.log(`Latest Comment \r\n ${JSON.stringify(latestComment)}`);
+
+    if(!latestComment.body.includes(command)) {
         repoOctokit.rest.issues.createComment({
             owner,
             repor,
