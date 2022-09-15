@@ -14,7 +14,7 @@ if(issue.data.comments === 0) {
     return;
 }
 
-const comments = await octokit.rest.issues.listComments(context.repo.owner, context.repo.repo, issueId);
+const comments = Promise.resolve(octokit.rest.issues.listComments(context.repo.owner, context.repo.repo, issueId));
 
 console.log(comments.data.length);
 
