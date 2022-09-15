@@ -12,13 +12,11 @@ This repo establishes a self-service approach to creating new repos in the organ
 It gives users the flexiblity to create repos as needed, without needing admins to do it for them, while still ensuring the repo meets all organizational requirements.
 
 ## How to Use
-Below is a basic YAML snippet that contains the parameters that will be used to create your repo.
-Simply fill them out and they will get validated in the issue.
-If there is anything wrong with your parameters, we'll ask you to clarify or fix.
-In certain instances, you can ask for an admin to override a rule.
+This self-service IssueOps works via a conversation through the comments on the issue.
+To get started, simply add a title and hit the `Submit new issue` button.
+Once the issue is created, you can start to add comments to the issue using a specific command syntax.
 
-``` yaml
-name:
-license:
-teamplate:
+Examples:
+```
+/repo -name="example-repo" -license="MIT" -template="owner/repo"
 ```
