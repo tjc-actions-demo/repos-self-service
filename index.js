@@ -7,7 +7,7 @@ const issueId = ore.getInput('issueId');
 
 const octokit = github.getOctokit(apiToken);
 
-const issue = await octokit.rest.issues.get(context.repo.owner, context.repo.repo, issueId);
+const issue = Promise.resolve(octokit.rest.issues.get(context.repo.owner, context.repo.repo, issueId));
 
 if(issue.data.comments === 0) {
     // Nothing to process here
