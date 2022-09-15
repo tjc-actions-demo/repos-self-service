@@ -119,19 +119,19 @@ const main = async () => {
             name: newRepo.name,
         });
     } else {
-        const { data: repo } =
-            await apiOctokit.rest.repos.createInOrg({
-                org: newRepo.owner,
-                name: newRepo.name,
-                visibility: "private",
-                has_issues: newRepo.issues_enabled,
-                has_projects: newRepo.projects_enabled
-            });
+        await apiOctokit.rest.repos.createInOrg({
+            org: newRepo.owner,
+            name: newRepo.name,
+            visibility: "private",
+            has_issues: newRepo.issues_enabled,
+            has_projects: newRepo.projects_enabled
+        });
 
         if (!newRepo.actions_enabled) {
-            await apiOctokit.rest.actions.disableSelectedRepositoryGithubActionsOrganization({
-                org: newRepo.owner,
-                repository_id: repo.id
+            await apiOctokit.rest.actions.setGithubActionsPermissionsRepository({
+                owner: newRepo.owner,
+                repo: newRepo.repo,
+                enabled: false
             });
         }
     }
