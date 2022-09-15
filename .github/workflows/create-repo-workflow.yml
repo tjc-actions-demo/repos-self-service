@@ -17,6 +17,7 @@ jobs:
         with:
           apiToken: ${{ secrets.API_TOKEN }}
           issueNumber: ${{ github.event.issue.number }}
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Dump GitHub context
         id: github_context_step
