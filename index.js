@@ -3,7 +3,7 @@ const github = require('@actions/github');
 
 const apiToken = core.getInput('apiToken');
 const context = github.context;
-const issueId = ore.getInput('issueId');
+const issueId = core.getInput('issueId');
 
 const octokit = github.getOctokit(apiToken);
 
