@@ -81,7 +81,7 @@ const main = async () => {
                 break;
 
             case "template":
-                newRepo.owner = value;
+                newRepo.template = value;
                 break;
         }
     });
