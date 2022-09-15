@@ -10,7 +10,11 @@ const octokit = github.getOctokit(apiToken);
 
 const main = async () => {
     console.log("Getting issue...");
-    const issue = await (await octokit.rest.issues.get(context.repo.owner, context.repo.repo, issueId)).data;
+    console.log(`Issue ID: ${issueId}`);
+    console.log(`Owner: ${context.repo.owner}`);
+    console.log(`Repo: ${context.repo.repo}`);
+    
+    const issue = (await octokit.rest.issues.get(context.repo.owner, context.repo.repo, issueId)).data;
     
     if(issue.data.comments === 0) {
         console.log("Issue has no comments...");
