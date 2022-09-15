@@ -47,7 +47,7 @@ const main = async () => {
     if(!latestComment.body.includes(command)) {
         repoOctokit.rest.issues.createComment({
             owner,
-            repor,
+            repo,
             issue_number: issueNumber,
             body: "A repo command was not found in your last comment."
         })
