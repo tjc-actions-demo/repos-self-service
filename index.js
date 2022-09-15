@@ -43,8 +43,6 @@ const main = async () => {
 
     var latestComment = comments[comments.length - 1];
 
-    console.log(`Latest Comment\r\n ${JSON.stringify(latestComment, null, 2)}`);
-
     if (!latestComment.body.includes(command)) {
         repoOctokit.rest.issues.createComment({
             owner,
@@ -86,7 +84,7 @@ const main = async () => {
         }
     });
 
-    repoOctokit.rest.issues.createComment({
+    await repoOctokit.rest.issues.createComment({
         owner,
         repo,
         issue_number: issueNumber,
@@ -94,27 +92,27 @@ const main = async () => {
     });
 
     if(newRepo.template) {
-        apiOctokit.rest.repos.createUsingTemplate({
+        await apiOctokit.rest.repos.createUsingTemplate({
             template_owner: newRepo.template.split('/')[0],
             template_repo: newRepo.template.split('/')[1],
-            owner: repo.owner,
-            name: repo.name
+            owner: newRepo.owner,
+            name: newRepo.name
         });
     } else {
-        apiOctokit.rest.repos.createInOrg({
-            owner: repo.owner,
-            name: repo.name
+        await apiOctokit.rest.repos.createInOrg({
+            owner: newRepo.owner,
+            name: newRepo.name
         });
     }
 
-    repoOctokit.rest.issues.createComment({
+    await repoOctokit.rest.issues.createComment({
         owner,
         repo,
         issue_number: issueNumber,
         body: `Your repo has been created`
     });
 
-    repoOctokit.rest.issues.update({
+    await repoOctokit.rest.issues.update({
         owner,
         repo,
         issue_number: issueNumber,
