@@ -91,7 +91,7 @@ const main = async () => {
         body: `Creating a new repo with the following information\r\nOrganization: ${newRepo.owner}\r\nName: ${newRepo.name}\r\nLicense: ${newRepo.license}\r\nTemplate: ${newRepo.template}`
     });
 
-    if(newRepo.template) {
+    if (newRepo.template) {
         await apiOctokit.rest.repos.createUsingTemplate({
             template_owner: newRepo.template.split('/')[0],
             template_repo: newRepo.template.split('/')[1],
@@ -104,6 +104,19 @@ const main = async () => {
             name: newRepo.name
         });
     }
+
+    const content = Buffer
+        .from("# Greetings!\nThis repo was created via IssueOps using a workflow in `tjc-actions-demo/repo-self-service`.", 'utf8')
+        .toString('base64');
+
+    await apiOctokit.rest.repos.createOrUpdateFileContents({
+        owner: newRepo.owner,
+        name: newRepo.name,
+        path: "README.md",
+        content: content,
+        committer: { name: "Repo Self Service", email: "automation@company.local" },
+        author: { name: "Repo Self Service", email: "automation@company.local" }
+    })
 
     await repoOctokit.rest.issues.createComment({
         owner,
