@@ -1,11 +1,10 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
+import { getInput } from '@actions/core';
+import { context, getOctokit } from '@actions/github';
 
-const apiToken = core.getInput('apiToken');
-const context = github.context;
-const issueId = core.getInput('issueId');
+const apiToken = getInput('apiToken');
+const issueId = getInput('issueId');
 
-const octokit = github.getOctokit(apiToken);
+const octokit = getOctokit(apiToken);
 
 const issue = Promise.resolve(octokit.rest.issues.get(context.repo.owner, context.repo.repo, issueId));
 

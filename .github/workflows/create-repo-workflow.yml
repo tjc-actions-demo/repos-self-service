@@ -15,7 +15,7 @@ jobs:
       - name: Process command
         uses: ./
         with:
-          apiToken: ${{ github.secrets.API_TOKEN }}
+          apiToken: ${{ secrets.API_TOKEN }}
           issueId: ${{ github.event.issue.id }}
 
       - name: Dump GitHub context
