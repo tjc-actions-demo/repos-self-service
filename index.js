@@ -20,7 +20,7 @@ const main = async () => {
     const { data: issue } = await octokit.rest.issues.get({
         owner,
         repo,
-        issueNumber
+        issue_number: issueNumber
     });
 
     if (issue.data.comments === 0) {
@@ -32,7 +32,7 @@ const main = async () => {
     const { data: comments } = await octokit.rest.issues.listComments({
         owner,
         repo,
-        issueNumber
+        issue_number: issueNumber
     });
 
     console.log(`Issue has ${comments.data.length} comment(s)`);
