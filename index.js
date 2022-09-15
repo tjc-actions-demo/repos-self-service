@@ -1,5 +1,5 @@
 const command = "/repo";
-const commandParameterRegEx = "-[\\w]+=\"[\\w\\d-\\\\/_]+\""
+const commandParameterRegEx = /-[\w]+="[\w\d-\\/_]+"/g
 const core = require('@actions/core');
 const github = require('@actions/github');
 
