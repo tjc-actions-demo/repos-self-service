@@ -56,7 +56,10 @@ const main = async () => {
 
     const matches = latestComment.body.match(commandParameterRegEx);
 
-    console.log(`Matches\r\n${JSON.stringify(matches, null, 2)}`)
+    matches.forEach((match, index) => 
+    {
+        console.log(`Match '${match}' at index ${index} `)
+    });
 }
 
 console.log("Calling main");
