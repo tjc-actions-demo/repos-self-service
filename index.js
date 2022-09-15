@@ -2,30 +2,41 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
+// Get Inputs
 const apiToken = core.getInput('apiToken');
-const context = github.context;
 const issueId = core.getInput('issueId');
 
 const octokit = github.getOctokit(apiToken);
+
+const owner = github.context.repo.owner;
+const repo = github.context.repo.repo
 
 const main = async () => {
     console.log("Getting issue...");
     console.log(`Issue ID: ${issueId}`);
     console.log(`Owner: ${context.repo.owner}`);
     console.log(`Repo: ${context.repo.repo}`);
-    
-    const issue = (await octokit.rest.issues.get(context.repo.owner, context.repo.repo, issueId)).data;
-    
-    if(issue.data.comments === 0) {
+
+    const { data: issue } = await octokit.rest.issues.get({
+        owner,
+        repo,
+        issueId
+    });
+
+    if (issue.data.comments === 0) {
         console.log("Issue has no comments...");
         // Nothing to process here
         return;
     }
-    
-    const comments = (await Promise.resolve(octokit.rest.issues.listComments(context.repo.owner, context.repo.repo, issueId))).data;
-    
+
+    const { data: comments } = await octokit.rest.issues.listComments({
+        owner,
+        repo,
+        issueId
+    });
+
     console.log(`Issue has ${comments.data.length} comment(s)`);
-    
+
     for (const comment of comments.data) {
         console.log(comment.body);
     }
