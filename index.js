@@ -58,7 +58,11 @@ const main = async () => {
         owner: "",
         name: "",
         license: "",
-        template: ""
+        template: "",
+        actions_enabled: false,
+        discussions_enabled: false,
+        issues_enabled: false,
+        projects_enabled: false,
     }
 
     matches.forEach((match) => {
@@ -81,6 +85,22 @@ const main = async () => {
             case "template":
                 newRepo.template = value;
                 break;
+
+            case "actions":
+                newRepo.actions_enabled = value.toLowerCase() === "enabled";
+                break;
+
+            case "issues":
+                newRepo.issues_enabled = value.toLowerCase() === "enabled";
+                break;
+
+            case "discussions":
+                newRepo.discussions_enabled = value.toLowerCase() === "enabled";
+                break;
+
+            case "projects":
+                newRepo.projects_enabled = value.toLowerCase() === "enabled";
+                break;
         }
     });
 
@@ -96,13 +116,24 @@ const main = async () => {
             template_owner: newRepo.template.split('/')[0],
             template_repo: newRepo.template.split('/')[1],
             owner: newRepo.owner,
-            name: newRepo.name
+            name: newRepo.name,
         });
     } else {
-        await apiOctokit.rest.repos.createInOrg({
-            org: newRepo.owner,
-            name: newRepo.name
-        });
+        const { data: repo } =
+            await apiOctokit.rest.repos.createInOrg({
+                org: newRepo.owner,
+                name: newRepo.name,
+                visibility: "private",
+                has_issues: newRepo.issues_enabled,
+                has_projects: newRepo.projects_enabled
+            });
+
+        if (!newRepo.actions_enabled) {
+            await apiOctokit.rest.actions.disableSelectedRepositoryGithubActionsOrganization({
+                org: newRepo.owner,
+                repository_id: repo.id
+            });
+        }
     }
 
     const content = Buffer
