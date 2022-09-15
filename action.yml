@@ -4,7 +4,7 @@ inputs:
   apiToken:
     description: 'The GitHub token to use when accessing the API'
     required: true
-  issueId:
+  issueNumber:
     description: 'The ID of the issue that has the parameters for creating the repository'
     required: true
 runs:

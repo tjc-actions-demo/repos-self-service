@@ -3,8 +3,8 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 // Get Inputs
-const apiToken = core.getInput('apiToken');
-const issueNumber = core.getInput('issueNumber');
+const apiToken = core.getInput('apiToken', { required: true });
+const issueNumber = core.getInput('issueNumber', { required: true });
 
 const octokit = github.getOctokit(apiToken);
 
