@@ -130,7 +130,7 @@ const main = async () => {
         if (!newRepo.actions_enabled) {
             await apiOctokit.rest.actions.setGithubActionsPermissionsRepository({
                 owner: newRepo.owner,
-                repo: newRepo.repo,
+                repo: newRepo.name,
                 enabled: false
             });
         }
