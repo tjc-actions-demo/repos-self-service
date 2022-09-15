@@ -113,6 +113,7 @@ const main = async () => {
         owner: newRepo.owner,
         repo: newRepo.name,
         path: "README.md",
+        message: "Initial commit from automation",
         content: content,
         committer: { name: "Repo Self Service", email: "automation@company.local" },
         author: { name: "Repo Self Service", email: "automation@company.local" }
