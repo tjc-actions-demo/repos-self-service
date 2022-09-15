@@ -93,7 +93,7 @@ const main = async () => {
         body: `Creating a new repo with the following information\r\nOrganization: ${newRepo.owner}\r\nName: ${newRepo.name}\r\nLicense: ${newRepo.license}\r\nTemplate: ${newRepo.template}`
     });
 
-    if(!newRepo.template) {
+    if(newRepo.template) {
         apiOctokit.rest.repos.createUsingTemplate({
             template_owner: newRepo.template.split('/')[0],
             template_repo: newRepo.template.split('/')[1],
