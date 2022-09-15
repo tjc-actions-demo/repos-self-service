@@ -26,7 +26,7 @@ const main = async () => {
         issue_number: issueNumber
     });
 
-    if (issue.comments === 0) {
+    if (issue.state === "closed" || issue.comments === 0) {
         console.log("Issue has no comments...");
         // Nothing to process here
         return;
