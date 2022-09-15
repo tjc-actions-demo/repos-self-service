@@ -1,0 +1,13 @@
+name: new-repo-workflow
+
+on:
+  issues:
+    types:
+      - "opened"
+
+jobs:
+  create-repo:
+    name: Create Rpo
+    runs-on: self-hosted
+    steps:
+      - run: echo "Issue created"
