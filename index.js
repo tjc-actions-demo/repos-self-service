@@ -100,7 +100,7 @@ const main = async () => {
         });
     } else {
         await apiOctokit.rest.repos.createInOrg({
-            owner: newRepo.owner,
+            org: newRepo.owner,
             name: newRepo.name
         });
     }
