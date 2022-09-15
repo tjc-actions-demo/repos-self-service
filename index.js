@@ -43,9 +43,9 @@ const main = async () => {
 
     var latestComment = comments[comments.length - 1];
 
-    console.log(`Latest Comment \r\n ${JSON.stringify(latestComment, null, 2)}`);
+    console.log(`Latest Comment\r\n ${JSON.stringify(latestComment, null, 2)}`);
 
-    if(!latestComment.body.includes(command)) {
+    if (!latestComment.body.includes(command)) {
         repoOctokit.rest.issues.createComment({
             owner,
             repo,
@@ -56,20 +56,42 @@ const main = async () => {
 
     const matches = latestComment.body.match(commandParameterRegEx);
 
-    var commandParameters = [];
+    const newRepo = {
+        owner: "",
+        name: "",
+        license: "",
+        template: ""
+    }
 
-    matches.forEach((match, index) => 
-    {
-        console.log(`Match '${match}' at index ${index}`)
-        commandParameters.push(match);
+    matches.forEach((match, index) => {
+        const parameter = match.split('=')[0].substring(1);
+        const value = match.split('=')[1].replace("\"", "");
+
+        switch (parameter.toLowerCase()) {
+            case "org":
+                newRepo.owner = value;
+                break;
+
+            case "name":
+                newRepo.name = value;
+                break;
+
+            case "license":
+                newRepo.license = value;
+                break;
+
+            case "template":
+                newRepo.owner = value;
+                break;
+        }
     });
 
     repoOctokit.rest.issues.createComment({
         owner,
         repo,
         issue_number: issueNumber,
-        body: "Command parameters:\r\n" + commandParameters.join("\r\n")
-    })
+        body: `Command:\r\nOrganization - ${newRepo.owner}\r\nName - ${newRepo.name}\r\nLicense - ${newRepo.license}\r\nTemplate - ${newRepo.template}`
+    });
 }
 
 console.log("Calling main");
