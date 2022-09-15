@@ -23,7 +23,7 @@ const main = async () => {
         issue_number: issueNumber
     });
 
-    if (issue.data.comments === 0) {
+    if (issue.comments === 0) {
         console.log("Issue has no comments...");
         // Nothing to process here
         return;
@@ -35,9 +35,9 @@ const main = async () => {
         issue_number: issueNumber
     });
 
-    console.log(`Issue has ${comments.data.length} comment(s)`);
+    console.log(`Issue has ${comments.length} comment(s)`);
 
-    for (const comment of comments.data) {
+    for (const comment of comments) {
         console.log(comment.body);
     }
 }
