@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const { isReadable } = require('stream');
 
 // Get Inputs
 const apiToken = core.getInput('apiToken', { required: true });
@@ -103,6 +104,10 @@ const main = async () => {
                 break;
         }
     });
+
+    if(!newRepo.name.startsWith("incycle_")) {
+        
+    }
 
     await repoOctokit.rest.issues.createComment({
         owner,
